@@ -1,25 +1,26 @@
-import subprocess
-import sys
 import os
-import webbrowser
+import sys
+import subprocess
 import time
+import webbrowser
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 app_path = os.path.join(base_dir, "app.py")
 
-cmd = [
+streamlit_cmd = [
     sys.executable,
     "-m",
     "streamlit",
     "run",
     app_path,
+    "--server.port=8501",
+    "--server.address=127.0.0.1",
     "--server.headless=true",
-    "--server.port=8501"
+    "--browser.gatherUsageStats=false"
 ]
 
-process = subprocess.Popen(cmd)
+subprocess.Popen(streamlit_cmd, cwd=base_dir)
 
-time.sleep(8)
-webbrowser.open("http://localhost:8501")
+time.sleep(20)
 
-process.wait()
+webbrowser.open("http://127.0.0.1:8501")
